@@ -1,3 +1,11 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/unlight/jest-createspyobj/compare/v1.0.0...v1.0.1) (2018-04-03)
+
+
+### Fix
+
+* Set typescript-eslint-parser satisfied version ([a9a98168eab2fb1e5faf968bb9912292a372356e](https://github.com/unlight/jest-createspyobj/commit/a9a98168eab2fb1e5faf968bb9912292a372356e))
+
 <a name="1.0.0"></a>
 # 1.0.0 (2018-04-03)
 
