@@ -6,10 +6,10 @@ export function createSpyObj<T>(ref: Constructor<T>, methods: string[]): jest.Mo
 export function createSpyObj(ref: any, methods: string[]) {
     let name = ref;
     if (typeof ref === 'function') {
-        name = ref.name || 'fn';
+        name = ref.name || 'createSpyObj';
     }
     return methods.reduce((object, key) => {
-        object[key] = jest.fn().mockName(name);
+        object[key] = jest.fn().mockName(`${name}.${key}`);
         return object;
     }, {});
 }
