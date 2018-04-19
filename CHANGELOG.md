@@ -1,3 +1,11 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/unlight/jest-createspyobj/compare/v1.0.1...v1.1.0) (2018-04-19)
+
+
+### Update
+
+* Mock method  name with createSpy name ([88e3521ab9ce754415aa3e02eec11da0c5b87df9](https://github.com/unlight/jest-createspyobj/commit/88e3521ab9ce754415aa3e02eec11da0c5b87df9))
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/unlight/jest-createspyobj/compare/v1.0.0...v1.0.1) (2018-04-03)
 
