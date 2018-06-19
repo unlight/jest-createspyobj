@@ -1,3 +1,11 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/unlight/jest-createspyobj/compare/v1.1.0...v1.2.0) (2018-06-19)
+
+
+### Update
+
+* Auto mocking methods for classes ([667ec167a6555c592c05284e5cf6dd4a512a0401](https://github.com/unlight/jest-createspyobj/commit/667ec167a6555c592c05284e5cf6dd4a512a0401))
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/unlight/jest-createspyobj/compare/v1.0.1...v1.1.0) (2018-04-19)
 

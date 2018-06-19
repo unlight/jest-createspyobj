@@ -1,6 +1,6 @@
 {
   "name": "jest-createspyobj",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "description": "Helper function to create spy object for `jest`, same as `jasmine.createSpyObj`",
   "main": "dist/index.js",
