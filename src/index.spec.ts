@@ -17,10 +17,19 @@ it('general', () => {
     assert(spy.pause);
 });
 
-it.skip('typings', () => {
-    class Cat {
-        eat() { 'eat'; }
+it('spy deep prototype', () => {
+    class Animal {
+        sound() { }
     }
-    const spy = lib.createSpyObj(Cat, []);
+    class Cat extends Animal {
+        meow() { }
+    }
+    class Fluffy extends Cat {
+        constructor(public breed) { super(); }
+        eat() { }
+    }
+    const spy = lib.createSpyObj(Fluffy);
     assert(spy.eat);
+    assert(spy.meow);
+    assert(spy.sound);
 });

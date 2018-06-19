@@ -16,6 +16,8 @@ const tslintRules = Object.assign({}, tslintRulesRecommended, {
     "interface-over-type-literal": false,
     "align": false,
     "trailing-comma": false,
+    "no-empty": false,
+    "max-classes-per-file": false,
 });
 
 module.exports = {
