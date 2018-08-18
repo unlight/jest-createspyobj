@@ -33,3 +33,17 @@ it('spy deep prototype', () => {
     assert(spy.meow);
     assert(spy.sound);
 });
+
+it('function constructor', () => {
+    function Cat() {
+    }
+    Cat.prototype.meow = function() { };
+    const spy = lib.createSpyObj<any>(Cat);
+    assert(spy.meow);
+});
+
+it('object with null prototype', () => {
+    function Empty() { }
+    Empty.prototype = null;
+    const spy = lib.createSpyObj<any>(Empty);
+});

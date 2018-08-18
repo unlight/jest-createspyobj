@@ -9,8 +9,10 @@ export function createSpyObj(ref: any, methods?: PropertyKey[]) {
         name = ref.name || 'createSpyObj';
         if (!methods) {
             methods = [];
-            for (let t: Constructor<any> = ref; !(t == null || t === Object); t = Object.getPrototypeOf(t.prototype), t = t.constructor) {
+            let t: Constructor<any> = ref;
+            while ((t.prototype && typeof t.prototype === 'object') && !(t == null || t === Object)) {
                 methods.push(...getClassMethods(t));
+                ({ constructor: t } = Object.getPrototypeOf(t.prototype));
             }
         }
     }
