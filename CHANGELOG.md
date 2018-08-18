@@ -1,3 +1,11 @@
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/unlight/jest-createspyobj/compare/v1.2.0...v1.2.1) (2018-08-18)
+
+
+### Fix
+
+* Prevent failing when prototype is nullish ([4947456a294e79e028133af8d652e09adb6d60df](https://github.com/unlight/jest-createspyobj/commit/4947456a294e79e028133af8d652e09adb6d60df))
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/unlight/jest-createspyobj/compare/v1.1.0...v1.2.0) (2018-06-19)
 
