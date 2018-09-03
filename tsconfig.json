@@ -8,9 +8,10 @@
     "emitDecoratorMetadata": true,
     "declaration": false,
     "outDir": "dist",
-    "pretty": false,
+    "pretty": true,
     "removeComments": false,
     "inlineSourceMap": true,
+    "strict": true,
     "lib": [
       "es2017"
     ],

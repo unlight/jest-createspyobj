@@ -1,9 +1,9 @@
 type Constructor<T> = { new(...args: any[]): T } | ((...args: any[]) => T) | Function; // eslint-disable-line tslint/config
 
-export function createSpyObj(ref: string, methods: PropertyKey[]): jest.Mocked<any>;
+export function createSpyObj(ref: string, methods: PropertyKey[]): { [k: string]: jest.Mock<any> };
 export function createSpyObj<T>(ref: Constructor<T>, methods?: PropertyKey[]): jest.Mocked<T>;
 
-export function createSpyObj(ref: any, methods?: PropertyKey[]) {
+export function createSpyObj(ref: any, methods?: any[]) {
     let name = ref;
     if (typeof ref === 'function') {
         name = ref.name || 'createSpyObj';
@@ -15,11 +15,15 @@ export function createSpyObj(ref: any, methods?: PropertyKey[]) {
                 ({ constructor: t } = Object.getPrototypeOf(t.prototype));
             }
         }
+    } else {
+        if (!methods) {
+            throw new TypeError('Expected `methods` parameter');
+        }
     }
     return methods.reduce((object, key) => {
         object[key] = jest.fn().mockName(`${name}.${key}`);
         return object;
-    }, {});
+    }, {} as { [k: string]: jest.Mock<any> });
 }
 
 function getClassMethods(target: Constructor<any>) {
@@ -37,7 +41,7 @@ function getClassMethods(target: Constructor<any>) {
             return false;
         }
         const descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
-        if (typeof descriptor.value === 'function') {
+        if (descriptor && typeof descriptor.value === 'function') {
             return true;
         }
         return false;
