@@ -1,3 +1,11 @@
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/unlight/jest-createspyobj/compare/v1.2.1...v1.2.2) (2018-09-03)
+
+
+### Fix
+
+* Strict null checks ([ea2ff9e9d77d2903f98c5ea2b47d89e4672049eb](https://github.com/unlight/jest-createspyobj/commit/ea2ff9e9d77d2903f98c5ea2b47d89e4672049eb))
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/unlight/jest-createspyobj/compare/v1.2.0...v1.2.1) (2018-08-18)
 
