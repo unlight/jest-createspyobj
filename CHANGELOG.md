@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/unlight/jest-createspyobj/compare/v1.2.2...v2.0.0) (2020-12-05)
+
+
+### Bug Fixes
+
+* Typings not detected ([cf7a736](https://github.com/unlight/jest-createspyobj/commit/cf7a736575a7bab75311138dd53f4fe8a719cf1d))
+
+
+### BREAKING CHANGES
+
+* Node LTS is required
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/unlight/jest-createspyobj/compare/v1.2.1...v1.2.2) (2018-09-03)
 
