@@ -1,103 +1,83 @@
 {
   "name": "jest-createspyobj",
-  "version": "1.2.2",
+  "version": "0.0.0-dev",
   "license": "MIT",
   "description": "Helper function to create spy object for `jest`, same as `jasmine.createSpyObj`",
-  "main": "dist/index.js",
-  "typings": "src/index.ts",
+  "main": "index.js",
+  "typings": "index.ts",
+  "author": "2020",
+  "keywords": [
+    "jest",
+    "create-spy",
+    "spy-class",
+    "spy-object"
+  ],
   "scripts": {
-    "t": "npm run mocha -- src/*.spec.ts",
-    "test": "npm run eslint && npm run tscheck && npm run t",
-    "test:r": "npm run mocha -- src/*.spec.ts",
-    "mocha": "node -r ts-node/register node_modules/mocha/bin/_mocha",
-    "test:w": "npm run mocha -- --watch-extensions ts --watch src/**/*.spec.ts",
-    "test:d": "node --inspect-brk -r ts-node/register node_modules/mocha/bin/_mocha --watch-extensions ts --watch --no-timeouts src/**/*.spec.ts",
+    "test": "npm run eslint && npm run tscheck && npm run test:cov",
     "tscheck": "echo tscheck... && tsc --noEmit",
     "tscheck:w": "npm run tscheck -- --watch",
-    "tsclint": "tsc --noEmit --pretty false --strictNullChecks --forceConsistentCasingInFileNames --noImplicitReturns --noImplicitThis --noUnusedLocals --noUnusedParameters",
-    "tsclint:w": "npm run tsclint -- --watch",
-    "eslint": "eslint src --ext ts",
-    "eslint:fix": "eslint src --ext \"ts\" --fix",
-    "eslint:w": "chokidar \"src/**/*.ts\" --initial -c \"npm run eslint\"",
-    "lint:w": "concurrently -- \"npm run tsclint:w\" \"npm run eslint:w\"",
-    "semantic-release": "node -r ts-node/register node_modules/semantic-release/bin/semantic-release.js",
-    "prepublishOnly": "npm run build",
-    "build": "tsc",
-    "prebuild": "npm run clean",
-    "clean": "rimraf dist",
-    "_setup": "npm i -g commitizen semantic-release-cli",
-    "commit": "git-cz"
+    "eslint:w": "watchexec -w src \"npm run eslint\"",
+    "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
+    "eslint:fix": "npm run eslint -- --fix",
+    "commit": "cz",
+    "cmlint": "sh Taskfile commit_lint",
+    "build": "sh Taskfile build",
+    "format": "npx prettier src --write",
+    "mocha": "node node_modules/mocha/bin/_mocha",
+    "test:r": "node -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha src/**/*.spec.ts",
+    "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/testing/**\"  npm run test:r -- --no-timeouts",
+    "test:w": "node -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha --watch-files src/**/*.ts --watch src/**/*.spec.ts",
+    "test:d": "ndb -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha --no-timeouts --watch-files src/**/*.ts --watch src/**/*.spec.ts"
   },
-  "optinalDependencies": {
-    "jest": ">22"
+  "husky": {
+    "hooks": {
+      "pre-commit": "precise-commits",
+      "pre-push": "npm run test"
+    }
+  },
+  "peerDependencies": {
+    "jest": ">=23"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^2.0.1",
-    "@semantic-release/git": "^4.0.1",
-    "@semantic-release/npm": "^3.2.4",
-    "@types/jest": "^22.2.3",
-    "@types/mocha": "^5.2.0",
-    "@types/node": "^9.6.6",
-    "chokidar-cli": "^1.2.0",
-    "concurrently": "^3.5.1",
-    "conventional-changelog-eslint": "^1.0.9",
-    "cz-adapter-eslint": "^0.1.2",
-    "eslint": "^4.19.1",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-tslint": "^2.1.0",
-    "eslint-plugin-typescript": "^0.11.0",
-    "eslint-plugin-unicorn": "^4.0.3",
-    "mocha": "^5.1.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^26.0.16",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^14.14.10",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "c8": "^7.3.5",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-etc": "^1.1.7",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-only-warn": "^1.0.2",
+    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-regexp": "^0.1.1",
+    "eslint-plugin-simple-import-sort": "^6.0.1",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-sort-class-members": "^1.8.0",
+    "eslint-plugin-total-functions": "^4.7.2",
+    "eslint-plugin-unicorn": "^23.0.0",
+    "eslint-plugin-wix-editor": "^3.2.0",
+    "expect": "^26.6.2",
+    "husky": "^4.3.4",
+    "jest": "^26.6.3",
+    "mocha": "^8.2.1",
     "nothing-mock": "^1.0.2",
-    "rimraf": "^2.6.2",
-    "semantic-release": "^15.1.7",
-    "ts-node": "^5.0.1",
-    "ts-simple-nameof": "^1.1.0",
-    "tslint": "^5.9.1",
-    "typescript": "~2.8.1",
-    "typescript-eslint-parser": "^15.0.0"
-  },
-  "engines": {
-    "node": ">=6",
-    "npm": ">=3"
+    "precise-commits": "^1.0.2",
+    "prettier": "^2.2.1",
+    "semantic-release": "^17.3.0",
+    "semantic-release-monorepo": "^7.0.3",
+    "simplytyped": "^3.3.0",
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2",
+    "watchexec-bin": "^1.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/unlight/jest-createspyobj.git"
-  },
-  "keywords": [],
-  "release": {
-    "generateNotes": {
-      "preset": "eslint"
-    },
-    "analyzeCommits": {
-      "preset": "eslint"
-    },
-    "verifyConditions": [
-      "@semantic-release/changelog",
-      "@semantic-release/github",
-      "@semantic-release/npm",
-      "@semantic-release/git"
-    ],
-    "prepare": [
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/git"
-    ],
-    "publish": [
-      "@semantic-release/npm",
-      "@semantic-release/github"
-    ],
-    "success": [
-      "@semantic-release/github"
-    ],
-    "fail": [
-      "@semantic-release/github"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-adapter-eslint"
-    }
   }
 }

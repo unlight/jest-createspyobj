@@ -1,49 +1,52 @@
-/// <reference types="mocha" />
-import * as assert from 'assert';
-import * as lib from './index';
+import expect from 'expect';
 import { Nothing } from 'nothing-mock';
 
-global['jest'] = { // eslint-disable-line tslint/config
-    fn: Nothing
+import { createSpyObj as createSpyObject } from '.';
+
+// @ts-ignore
+global['jest'] = {
+    fn: Nothing,
 };
 
 it('smoke', () => {
-    assert(lib.createSpyObj);
+    expect(typeof createSpyObject).toBe('function');
 });
 
 it('general', () => {
-    const spy = lib.createSpyObj('tape', ['play', 'pause']);
-    assert(spy.play);
-    assert(spy.pause);
+    const spy = createSpyObject('tape', ['play', 'pause']);
+    expect(spy.play).toBeTruthy();
+    expect(spy.pause).toBeTruthy();
 });
 
 it('spy deep prototype', () => {
     class Animal {
-        sound() { }
+        sound() {}
     }
     class Cat extends Animal {
-        meow() { }
+        meow() {}
     }
     class Fluffy extends Cat {
-        constructor(public breed) { super(); }
-        eat() { }
+        constructor(public breed: any) {
+            super();
+        }
+        eat() {}
     }
-    const spy = lib.createSpyObj(Fluffy);
-    assert(spy.eat);
-    assert(spy.meow);
-    assert(spy.sound);
+    const spy = createSpyObject(Fluffy);
+    expect(spy.eat).toBeTruthy();
+    expect(spy.meow).toBeTruthy();
+    expect(spy.sound).toBeTruthy();
 });
 
 it('function constructor', () => {
-    function Cat() {
-    }
-    Cat.prototype.meow = function() { };
-    const spy = lib.createSpyObj<any>(Cat);
-    assert(spy.meow);
+    function Cat() {}
+    Cat.prototype.meow = function () {};
+    const spy = createSpyObject<any>(Cat);
+    expect(spy.meow).toBeTruthy();
 });
 
 it('object with null prototype', () => {
-    function Empty() { }
+    function Empty() {}
     Empty.prototype = null;
-    const spy = lib.createSpyObj<any>(Empty);
+    const spy = createSpyObject<any>(Empty);
+    expect(spy).toBeTruthy();
 });
