@@ -1,15 +1,18 @@
 type Constructor<T> = { new (...args: any[]): T } | ((...args: any[]) => T) | Function;
 
-export function createSpyObj(ref: string, methods: PropertyKey[]): { [k: string]: jest.Mock<any> };
-export function createSpyObj<T>(ref: Constructor<T>, methods?: PropertyKey[]): jest.Mocked<T>;
+export function createSpyObject(
+    ref: string,
+    methods: PropertyKey[],
+): { [k: string]: jest.Mock<any> };
+export function createSpyObject<T>(ref: Constructor<T>, methods?: PropertyKey[]): jest.Mocked<T>;
 
-export function createSpyObj(ref: any, methods?: (string | number | symbol)[]) {
+export function createSpyObject<T>(ref: Constructor<T> | string, methods?: PropertyKey[]) {
     let name = ref;
     if (typeof ref === 'function') {
-        name = ref.name || 'createSpyObj';
+        name = ref.name || 'createSpyObject';
         if (!methods) {
             methods = [];
-            let t: Constructor<any> = ref;
+            let t: Constructor<T> = ref;
             while (
                 t.prototype &&
                 typeof t.prototype === 'object' &&
@@ -24,22 +27,14 @@ export function createSpyObj(ref: any, methods?: (string | number | symbol)[]) {
             throw new TypeError('Expected `methods` parameter');
         }
     }
-    return methods.reduce((object, key) => {
-        object[String(key)] = jest.fn().mockName(`${name}.${String(key)}`);
-        return object;
-    }, {} as { [k: string]: jest.Mock<any> });
+
+    return Object.fromEntries(
+        methods.map((key) => [String(key), jest.fn().mockName(`${name}.${String(key)}`)]),
+    );
 }
 
-function getClassMethods(target: Constructor<any>) {
-    let keys: PropertyKey[];
-    if (typeof Reflect !== 'undefined' && typeof Reflect.ownKeys === 'function') {
-        keys = Reflect.ownKeys(target.prototype);
-    } else {
-        keys = Object.getOwnPropertyNames(target.prototype);
-        if (typeof Object.getOwnPropertySymbols === 'function') {
-            keys = keys.concat(Object.getOwnPropertySymbols(target.prototype));
-        }
-    }
+function getClassMethods<T>(target: Constructor<T>) {
+    const keys = Reflect.ownKeys(target.prototype);
     return keys.filter((key) => {
         if (key === 'constructor') {
             return false;
@@ -51,3 +46,5 @@ function getClassMethods(target: Constructor<any>) {
         return false;
     });
 }
+
+export { createSpyObject as createSpyObj };

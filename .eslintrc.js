@@ -113,6 +113,7 @@ module.exports = {
                 '@typescript-eslint/no-explicit-any': 0,
                 '@typescript-eslint/no-floating-promises': 0,
                 '@typescript-eslint/no-non-null-assertion': 0,
+                '@typescript-eslint/no-empty-function': 0,
                 '@typescript-eslint/camelcase': 0,
                 'import/max-dependencies': 0,
                 'sonarjs/no-duplicate-string': 0,

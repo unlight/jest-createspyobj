@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { Nothing } from 'nothing-mock';
 
-import { createSpyObj as createSpyObject } from '.';
+import { createSpyObject } from '.';
 
 // @ts-ignore
 global['jest'] = {
@@ -47,6 +47,6 @@ it('function constructor', () => {
 it('object with null prototype', () => {
     function Empty() {}
     Empty.prototype = null;
-    const spy = createSpyObject<any>(Empty);
+    const spy = createSpyObject(Empty);
     expect(spy).toBeTruthy();
 });
